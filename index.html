@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CareFlow | Healthcare Staff Planner</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+
+    <aside class="sidebar">
+        <a href="#" class="brand">
+            <span class="brand-icon">✚</span>
+            <span>Care<span class="brand-light">Flow</span></span>
+        </a>
+
+        <div class="sidebar-label">WORKSPACE</div>
+
+        <nav class="navbar">
+            <button class="nav-link active" data-page="dashboard">
+                <span>▦</span> Dashboard
+            </button>
+            <button class="nav-link" data-page="staff">
+                <span>♙</span> Staff Management
+            </button>
+            <button class="nav-link" data-page="shifts">
+                <span>▤</span> Shift Calendar
+            </button>
+            <button class="nav-link" data-page="assign">
+                <span>＋</span> Assign Shift
+            </button>
+            <button class="nav-link" data-page="leave">
+                <span>◷</span> Leave Management
+            </button>
+            <button class="nav-link" data-page="reports">
+                <span>▥</span> Reports
+            </button>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="support-card">
+                <div class="support-icon">✚</div>
+                <h3>Healthcare Planner</h3>
+                <p>Organize your team and manage daily hospital duties.</p>
+            </div>
+            <div class="sidebar-footer">CARE MANAGEMENT SYSTEM</div>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="topbar">
+            <div>
+                <p class="topbar-label">HEALTHCARE MANAGEMENT</p>
+                <h2 id="pageHeading">Dashboard</h2>
+            </div>
+            <div class="topbar-right">
+                <span class="system-status"><span class="status-dot"></span> System Active</span>
+                <div class="profile-avatar">A</div>
+                <div class="profile-info">
+                    <strong>Administrator</strong>
+                    <span>Management</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="content-wrapper">
+
+            <!-- DASHBOARD -->
+            <section class="page active" id="dashboard">
+                <div class="hero">
+                    <div class="hero-content">
+                        <span class="eyebrow">HEALTHCARE STAFF MANAGEMENT</span>
+                        <h1>Better care starts<br>with <em>better planning.</em></h1>
+                        <p>Manage your healthcare team, organize staff schedules, and keep daily operations running smoothly.</p>
+                        <button class="hero-button" data-goto="assign">＋ Assign a Shift</button>
+                    </div>
+                    <div class="hero-visual">
+                        <div class="hero-circle"></div>
+                        <div class="hero-cross">✚</div>
+                        <div class="hero-note">
+                            <span class="note-icon">✓</span>
+                            <div><strong>Care organized</strong><small>Team scheduling made simple</small></div>
+                        </div>
+                        <div class="hero-big-icon">✚</div>
+                    </div>
+                </div>
+
+                <div class="section-heading">
+                    <div>
+                        <span class="eyebrow">YOUR WORKSPACE</span>
+                        <h2>Overview</h2>
+                        <p>Here is what's happening in your team today.</p>
+                    </div>
+                    <span class="today-label" id="todayLabel">Today's overview</span>
+                </div>
+
+                <div class="stats-grid">
+                    <article class="stat-card">
+                        <div class="stat-top"><span>Total Staff</span><span class="stat-icon green">♙</span></div>
+                        <h2 id="staffCount">0</h2>
+                        <p>Registered team members</p>
+                    </article>
+                    <article class="stat-card">
+                        <div class="stat-top"><span>Total Shifts</span><span class="stat-icon mint">▤</span></div>
+                        <h2 id="shiftCount">0</h2>
+                        <p>Scheduled duty records</p>
+                    </article>
+                    <article class="stat-card">
+                        <div class="stat-top"><span>Scheduling Conflicts</span><span class="stat-icon orange">!</span></div>
+                        <h2 id="conflictCount">0</h2>
+                        <p>Overlapping shift records</p>
+                    </article>
+                    <article class="stat-card">
+                        <div class="stat-top"><span>Pending Leaves</span><span class="stat-icon purple">◷</span></div>
+                        <h2 id="leaveCount">0</h2>
+                        <p>Requests awaiting review</p>
+                    </article>
+                </div>
+
+                <div class="panel summary-panel">
+                    <div class="panel-heading">
+                        <div><span class="eyebrow">DAILY ACTIVITY</span><h2>Today's Summary</h2></div>
+                        <span class="live-tag"><span class="status-dot"></span> Live overview</span>
+                    </div>
+                    <div id="dashboardSummary" class="summary-content"></div>
+                </div>
+            </section>
+
+            <!-- STAFF MANAGEMENT -->
+            <section class="page" id="staff">
+                <div class="page-intro">
+                    <span class="eyebrow">YOUR HEALTHCARE TEAM</span>
+                    <h1>Staff Management</h1>
+                    <p>Add, search, and manage your hospital team members.</p>
+                </div>
+
+                <div class="panel">
+                    <div class="panel-heading">
+                        <div><h2>Add New Staff</h2><p>Enter the staff member's information below.</p></div>
+                        <span class="panel-symbol">♙</span>
+                    </div>
+                    <form id="staffForm" class="form-grid">
+                        <div class="form-group">
+                            <label for="staffName">Full Name</label>
+                            <input type="text" id="staffName" placeholder="Enter full name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="staffRole">Job Role</label>
+                            <select id="staffRole" required>
+                                <option value="">Select role</option>
+                                <option>Nurse</option>
+                                <option>Doctor</option>
+                                <option>Receptionist</option>
+                                <option>Technician</option>
+                                <option>Ward Assistant</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="department">Department</label>
+                            <select id="department" required>
+                                <option value="">Select department</option>
+                                <option>Emergency</option>
+                                <option>ICU</option>
+                                <option>General Ward</option>
+                                <option>Cardiology</option>
+                                <option>Reception</option>
+                                <option>Laboratory</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="staffEmail">Email Address</label>
+                            <input type="email" id="staffEmail" placeholder="name@example.com" required>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="primary-button">＋ Add Staff Member</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="panel">
+                    <div class="panel-heading table-heading">
+                        <div><h2>Team Directory</h2><p>All registered healthcare staff members.</p></div>
+                        <input type="search" id="staffSearch" class="search-input" placeholder="Search staff...">
+                    </div>
+                    <div class="table-wrap">
+                        <table>
+                            <thead><tr><th>STAFF MEMBER</th><th>ROLE</th><th>DEPARTMENT</th><th>EMAIL</th><th>ACTIONS</th></tr></thead>
+                            <tbody id="staffTable"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SHIFTS -->
+            <section class="page" id="shifts">
+                <div class="page-intro">
+                    <span class="eyebrow">DUTY SCHEDULING</span>
+                    <h1>Shift Calendar</h1>
+                    <p>View and manage your team's scheduled duties.</p>
+                </div>
+                <div class="panel">
+                    <div class="panel-heading">
+                        <div><h2>Scheduled Shifts</h2><p>All assigned staff duties in one place.</p></div>
+                        <button class="primary-button" data-goto="assign">＋ Assign Shift</button>
+                    </div>
+                    <div class="table-wrap">
+                        <table>
+                            <thead><tr><th>STAFF MEMBER</th><th>DEPARTMENT</th><th>DATE</th><th>SHIFT</th><th>TIME</th></tr></thead>
+                            <tbody id="shiftTable"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ASSIGN SHIFT -->
+            <section class="page" id="assign">
+                <div class="page-intro">
+                    <span class="eyebrow">TEAM SCHEDULING</span>
+                    <h1>Assign a Shift</h1>
+                    <p>Create a duty schedule for a healthcare team member.</p>
+                </div>
+                <div class="form-layout">
+                    <div class="panel form-panel">
+                        <div class="panel-heading">
+                            <div><h2>Shift Details</h2><p>Complete the information to assign a duty.</p></div>
+                            <span class="panel-symbol">▤</span>
+                        </div>
+                        <div id="shiftMessage" class="message" aria-live="polite"></div>
+                        <form id="shiftForm" class="form-grid single-column">
+                            <div class="form-group">
+                                <label for="shiftStaff">Select Staff Member</label>
+                                <select id="shiftStaff" required><option value="">Choose staff member</option></select>
+                            </div>
+                            <div class="form-group">
+                                <label for="shiftDate">Shift Date</label>
+                                <input type="date" id="shiftDate" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="shiftType">Shift Type</label>
+                                <select id="shiftType" required>
+                                    <option value="">Select shift type</option>
+                                    <option>Morning</option>
+                                    <option>Evening</option>
+                                    <option>Night</option>
+                                    <option>Custom</option>
+                                </select>
+                            </div>
+                            <div class="two-fields">
+                                <div class="form-group">
+                                    <label for="startTime">Start Time</label>
+                                    <input type="time" id="startTime" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="endTime">End Time</label>
+                                    <input type="time" id="endTime" required>
+                                </div>
+                            </div>
+                            <button type="submit" class="primary-button full-button">Assign Shift →</button>
+                        </form>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-card-icon">✚</div>
+                        <span class="eyebrow">SCHEDULING NOTE</span>
+                        <h2>Right person.<br>Right shift.</h2>
+                        <p>Before assigning a duty, the system checks for approved leave and overlapping shifts for the selected staff member.</p>
+                        <div class="info-divider"></div>
+                        <div class="info-point"><span>✓</span> Leave conflict check</div>
+                        <div class="info-point"><span>✓</span> Overlapping shift check</div>
+                        <div class="info-point"><span>✓</span> Schedule overview</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- LEAVE MANAGEMENT -->
+            <section class="page" id="leave">
+                <div class="page-intro">
+                    <span class="eyebrow">STAFF AVAILABILITY</span>
+                    <h1>Leave Management</h1>
+                    <p>Review staff leave requests and manage approvals.</p>
+                </div>
+                <div class="panel">
+                    <div class="panel-heading">
+                        <div><h2>Submit Leave Request</h2><p>Enter the details of the requested leave.</p></div>
+                        <span class="panel-symbol">◷</span>
+                    </div>
+                    <form id="leaveForm" class="form-grid">
+                        <div class="form-group">
+                            <label for="leaveStaff">Staff Member</label>
+                            <select id="leaveStaff" required><option value="">Choose staff member</option></select>
+                        </div>
+                        <div class="form-group">
+                            <label for="leaveDate">Leave Date</label>
+                            <input type="date" id="leaveDate" required>
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="leaveReason">Reason for Leave</label>
+                            <textarea id="leaveReason" rows="3" placeholder="Enter reason for leave..." required></textarea>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="primary-button">Submit Leave Request</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="panel">
+                    <div class="panel-heading">
+                        <div><h2>Leave Requests</h2><p>Review and update staff leave applications.</p></div>
+                    </div>
+                    <div class="table-wrap">
+                        <table>
+                            <thead><tr><th>STAFF MEMBER</th><th>DATE</th><th>REASON</th><th>STATUS</th><th>ACTIONS</th></tr></thead>
+                            <tbody id="leaveTable"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- REPORTS -->
+            <section class="page" id="reports">
+                <div class="page-intro">
+                    <span class="eyebrow">DATA & EXPORT</span>
+                    <h1>Reports</h1>
+                    <p>Keep a record of your team's shift schedule.</p>
+                </div>
+                <div class="report-card">
+                    <div class="report-icon">▥</div>
+                    <span class="eyebrow">SHIFT REPORT</span>
+                    <h2>Export your schedule</h2>
+                    <p>Download the current shift schedule as a CSV file. You can open it in spreadsheet applications for further review.</p>
+                    <button id="exportBtn" class="primary-button">↓ Export Shift Report</button>
+                </div>
+                <div class="panel">
+                    <div class="panel-heading"><div><h2>Report Information</h2><p>Current project data overview.</p></div></div>
+                    <div class="report-info-grid">
+                        <div><span>Total Staff</span><strong id="reportStaffCount">0</strong></div>
+                        <div><span>Total Shifts</span><strong id="reportShiftCount">0</strong></div>
+                        <div><span>Leave Requests</span><strong id="reportLeaveCount">0</strong></div>
+                    </div>
+                    <p class="small-note">This is a frontend demonstration. Data is stored temporarily in the browser and resets when the page is refreshed.</p>
+                </div>
+            </section>
+
+        </div>
+
+        <footer class="main-footer">
+            <span>✚ CareFlow Healthcare Staff Planner</span>
+            <span>Frontend Project · HTML · CSS · JavaScript</span>
+        </footer>
+    </main>
+
+</body>
+</html>
